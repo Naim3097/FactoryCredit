@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #0099dd;
+  --color-primary-dark: #0077b3;
+  --color-primary-deeper: #0a2e5c;
+  --color-accent-green: #22c55e;
+  --color-accent-teal: #00b4d8;
+  --color-blue-light: #e8f4fd;
+  --color-blue-gradient-start: #0088cc;
+  --color-blue-gradient-mid: #00aadd;
+  --color-blue-gradient-end: #33ccee;
+  --color-footer-bg: #009ed6;
+  --font-sans: var(--font-brandon);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #171717;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Range slider styles for loan calculator */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: var(--color-primary-deeper);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  background: var(--color-primary-deeper);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
 }

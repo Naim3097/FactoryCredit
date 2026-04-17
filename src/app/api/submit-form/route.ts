@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const BRANCH_EMAILS: Record<string, string> = {
   satok: "kuching@factorycredit.com.my",
@@ -71,16 +73,6 @@ export async function POST(request: Request) {
 
     const branchEmail = BRANCH_EMAILS[cawangan];
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: Number(process.env.SMTP_PORT) === 465,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
     const htmlContent = `
       <h2>Permohonan Pinjaman Baru</h2>
       <table style="border-collapse:collapse;width:100%;max-width:600px;">
@@ -97,13 +89,18 @@ export async function POST(request: Request) {
       </table>
     `;
 
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || "noreply@factorycredit.com.my",
+    const { error } = await resend.emails.send({
+      from: "Factory Credit <onboarding@resend.dev>",
       to: branchEmail,
       subject: `Permohonan Pinjaman Baru - ${nama}`,
       html: htmlContent,
       replyTo: email,
     });
+
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json({ error: "Gagal menghantar borang." }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

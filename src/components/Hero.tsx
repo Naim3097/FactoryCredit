@@ -127,13 +127,15 @@ export default function Hero() {
       className="relative pt-16 overflow-hidden"
       aria-label="Hero"
     >
+      {/* Aspect ratio wrapper — match bg image on desktop */}
+      <div className="min-h-[700px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/836]">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero-bg.png"
           alt="Pegawai Factory Credit di pejabat"
           fill
-          className="object-cover object-center"
+          className="object-cover object-top"
           priority
           sizes="100vw"
         />
@@ -141,10 +143,10 @@ export default function Hero() {
         <div className="absolute inset-0 bg-primary-deeper/40 lg:hidden" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 py-10 sm:px-6 md:px-8 lg:py-16">
-        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:items-start lg:gap-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 py-6 sm:px-6 md:px-8 lg:py-8">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:items-start lg:gap-6">
           {/* Left content */}
-          <div className="text-white">
+          <div className="text-white lg:pt-4">
             <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
               Pinjaman Peribadi
               <br />
@@ -172,12 +174,12 @@ export default function Hero() {
           </div>
 
           {/* Right form */}
-          <div className="w-full rounded-2xl bg-white p-5 shadow-2xl sm:p-7 sm:max-w-sm sm:mx-auto lg:ml-auto lg:mr-0">
-            <h2 className="mb-5 text-lg font-extrabold text-accent-green sm:text-xl">
+          <div className="w-full rounded-2xl bg-white p-4 shadow-2xl sm:p-5 sm:max-w-sm sm:mx-auto lg:ml-auto lg:mr-0">
+            <h2 className="mb-3 text-base font-extrabold text-accent-green sm:text-lg">
               Borang Daftar Pinjaman
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-2.5" suppressHydrationWarning>
               <div className="border-b border-gray-300">
                 <input
                   type="text"
@@ -187,7 +189,7 @@ export default function Hero() {
                   value={formData.jumlahPinjaman}
                   onChange={handleDigitField}
                   onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                   minLength={4}
                   maxLength={5}
@@ -202,7 +204,7 @@ export default function Hero() {
                   value={formData.umur}
                   onChange={handleDigitField}
                   onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                   minLength={2}
                   maxLength={2}
@@ -215,7 +217,7 @@ export default function Hero() {
                   placeholder="No. IC"
                   value={formData.noIC}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                 />
               </div>
@@ -226,7 +228,7 @@ export default function Hero() {
                   placeholder="Nama"
                   value={formData.nama}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                 />
               </div>
@@ -237,7 +239,7 @@ export default function Hero() {
                   placeholder="Email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                 />
               </div>
@@ -250,7 +252,7 @@ export default function Hero() {
                   value={formData.telefon}
                   onChange={handleDigitField}
                   onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                   minLength={10}
                   maxLength={12}
@@ -261,7 +263,7 @@ export default function Hero() {
                   name="sektorPekerjaan"
                   value={formData.sektorPekerjaan}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-400 lg:text-sm outline-none"
                   required
                 >
                   <option value="" disabled>
@@ -282,7 +284,7 @@ export default function Hero() {
                   placeholder="Gaji Kasar (Minimum RM2000)"
                   value={formData.gajiKasar}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-800 placeholder-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
                 />
               </div>
@@ -291,7 +293,7 @@ export default function Hero() {
                   name="cawangan"
                   value={formData.cawangan}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-400 lg:text-sm outline-none"
                   required
                 >
                   <option value="" disabled>
@@ -308,7 +310,7 @@ export default function Hero() {
                   name="sumberInfo"
                   value={formData.sumberInfo}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-2 text-sm text-gray-400 outline-none"
+                  className="w-full bg-transparent py-1.5 text-xs text-gray-400 lg:text-sm outline-none"
                   required
                 >
                   <option value="" disabled>
@@ -326,20 +328,21 @@ export default function Hero() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="mt-2 rounded-full bg-primary px-8 py-2.5 text-sm font-bold text-white transition-colors hover:bg-primary-dark disabled:opacity-50"
+                className="mt-1 rounded-full bg-primary px-6 py-2 text-xs font-bold text-white transition-colors hover:bg-primary-dark disabled:opacity-50 sm:text-sm"
               >
                 {submitting ? "Menghantar..." : "Hantar"}
               </button>
 
               {submitStatus === "success" && (
-                <p className="text-sm text-accent-green">Borang berjaya dihantar! Kami akan menghubungi anda.</p>
+                <p className="text-xs text-accent-green">Borang berjaya dihantar! Kami akan menghubungi anda.</p>
               )}
               {submitStatus === "error" && (
-                <p className="text-sm text-red-400">Gagal menghantar. Sila cuba lagi.</p>
+                <p className="text-xs text-red-400">Gagal menghantar. Sila cuba lagi.</p>
               )}
             </form>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -21,21 +21,25 @@ const testimonials = [
   },
 ];
 
+import RevealOnScroll from "./RevealOnScroll";
+
 export default function Testimonials() {
   return (
     <section id="testimoni" className="bg-white py-12 sm:py-16 lg:py-24 overflow-hidden" aria-label="Testimoni pelanggan">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+        <RevealOnScroll>
         <h2 className="text-center text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
           Testimoni
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600 sm:mt-3 sm:text-base">
           Bila pelanggan berpuas hati, kami juga senang hati.
         </p>
+        </RevealOnScroll>
       </div>
 
       <div className="mt-8 sm:mt-12 relative">
         <div className="flex animate-marquee gap-6 w-max">
-          {[...testimonials, ...testimonials].map((t, i) => (
+          {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, i) => (
             <article
               key={`${t.name}-${i}`}
               className="flex w-[300px] shrink-0 flex-col justify-between rounded-xl border border-gray-100 bg-white p-5 shadow-sm sm:w-[350px] sm:rounded-2xl sm:p-6"

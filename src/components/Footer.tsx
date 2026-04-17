@@ -72,23 +72,23 @@ export default function Footer() {
 
           {/* License info */}
           <div>
-            <h3 className="mb-3 text-sm font-bold">Nombor lesen</h3>
+            <p className="mb-3 text-sm font-bold">Nombor lesen</p>
             <p className="text-xs text-white/80">RBK/PPW/95/2024/0008</p>
-            <h3 className="mb-1 mt-4 text-sm font-bold">
+            <p className="mb-1 mt-4 text-sm font-bold">
               Tempoh sah laku lesen
-            </h3>
+            </p>
             <p className="text-xs text-white/80">20/4/2026</p>
-            <h3 className="mb-1 mt-4 text-sm font-bold">Nombor permit iklan</h3>
+            <p className="mb-1 mt-4 text-sm font-bold">Nombor permit iklan</p>
             <p className="text-xs text-white/80">RBK/PPW/IK/95/2024/0008</p>
-            <h3 className="mb-1 mt-4 text-sm font-bold">
+            <p className="mb-1 mt-4 text-sm font-bold">
               Tempoh sah laku permit iklan
-            </h3>
+            </p>
             <p className="text-xs text-white/80">20/4/2026</p>
           </div>
 
           {/* Operating hours */}
           <div>
-            <h3 className="mb-3 text-sm font-bold">Waktu Operasi</h3>
+            <p className="mb-3 text-sm font-bold">Waktu Operasi</p>
             <div className="space-y-1 text-xs text-white/80">
               <p>Isnin - Jumaat: 8:30am - 5:30pm</p>
               <p>Sabtu: 8:30am - 12:30pm</p>
@@ -98,7 +98,7 @@ export default function Footer() {
 
           {/* Branches */}
           <div className="lg:col-span-2">
-            <h3 className="mb-3 text-sm font-bold">Khidmat Pelanggan</h3>
+            <h2 className="mb-3 text-sm font-bold">Khidmat Pelanggan</h2>
             <div className="grid gap-4 sm:grid-cols-2">
               {branches.map((b) => (
                 <div key={b.name}>

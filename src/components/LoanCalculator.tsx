@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import RevealOnScroll from "./RevealOnScroll";
 
 const MIN_AMOUNT = 1000;
 const MAX_AMOUNT = 50000;
@@ -30,15 +31,18 @@ export default function LoanCalculator() {
       aria-label="Kalkulator pinjaman"
     >
       <div className="mx-auto max-w-5xl px-5 sm:px-6 lg:px-8">
+        <RevealOnScroll>
         <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-primary sm:text-sm">
           Kalkulator Pinjaman
         </p>
         <h2 className="mt-2 text-center text-xl font-bold text-primary-deeper sm:text-2xl md:text-3xl">
           Kira dengan kalkulator kami
         </h2>
+        </RevealOnScroll>
 
         <div className="mt-6 flex flex-col items-center gap-6 sm:mt-8 sm:gap-8 lg:flex-row lg:items-start lg:justify-center lg:gap-16">
           {/* Calculator card */}
+          <RevealOnScroll delay={100}>
           <div className="w-full rounded-xl bg-white p-5 shadow-lg sm:p-6 lg:max-w-md">
             <h3 className="text-lg font-bold text-primary-deeper sm:text-xl">
               Kalkulator Pinjaman Peribadi
@@ -101,8 +105,10 @@ export default function LoanCalculator() {
               </div>
             </div>
           </div>
+          </RevealOnScroll>
 
           {/* Results */}
+          <RevealOnScroll delay={250}>
           <div className="flex flex-col items-center gap-4 sm:gap-5 lg:items-start lg:pt-8">
             <div className="text-center lg:text-left">
               <p className="text-sm font-bold text-gray-800">
@@ -136,6 +142,7 @@ export default function LoanCalculator() {
               Mohon Sekarang
             </a>
           </div>
+          </RevealOnScroll>
         </div>
       </div>
     </section>

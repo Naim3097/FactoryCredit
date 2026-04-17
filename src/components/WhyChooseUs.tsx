@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RevealOnScroll from "./RevealOnScroll";
 
 const reasons = [
   {
@@ -27,14 +28,16 @@ export default function WhyChooseUs() {
   return (
     <section id="kenapa-kami" className="bg-white py-10 sm:py-12 lg:py-16" aria-label="Kenapa pilih kami">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        <h2 className="text-center text-xl font-bold italic text-primary sm:text-2xl md:text-3xl lg:text-4xl">
+        <RevealOnScroll>
+        <h2 className="text-center text-xl font-bold text-primary sm:text-2xl md:text-3xl lg:text-4xl">
           Factory Credit Pilihan Ramai Orang Kerana...
         </h2>
+        </RevealOnScroll>
 
         <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 lg:flex lg:flex-wrap lg:justify-center lg:gap-8">
           {reasons.map((r, i) => (
+            <RevealOnScroll key={r.title} delay={i * 120}>
             <div
-              key={r.title}
               className={`flex flex-col items-center gap-3 text-center ${i === reasons.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
             >
               <div className="relative h-20 w-20 overflow-hidden rounded-full shadow-lg ring-4 ring-primary/20 transition-transform hover:scale-110 sm:h-24 sm:w-24">
@@ -49,6 +52,7 @@ export default function WhyChooseUs() {
               </div>
               <p className="text-xs font-medium text-gray-800 sm:text-sm max-w-[140px]">{r.title}</p>
             </div>
+            </RevealOnScroll>
           ))}
         </div>
       </div>

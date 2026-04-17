@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RevealOnScroll from "./RevealOnScroll";
 
 export default function InfoPenting() {
   return (
@@ -25,9 +26,10 @@ export default function InfoPenting() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-10 sm:px-6 md:px-8 lg:py-24 flex items-center justify-center lg:justify-end min-h-full">
         <div className="w-full max-w-lg">
           {/* Header */}
+          <RevealOnScroll>
           <div>
             <p className="text-xs font-medium text-white/80 sm:text-sm">Info Penting</p>
-            <h2 className="mt-1 text-2xl font-bold italic text-white sm:text-3xl md:text-4xl">
+            <h2 className="mt-1 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
               Pembayaran Fleksibel
             </h2>
             <p className="mt-3 text-xs text-white/90 sm:mt-4 sm:text-sm">
@@ -35,8 +37,10 @@ export default function InfoPenting() {
               maksimum : 18% setahun
             </p>
           </div>
+          </RevealOnScroll>
 
           {/* Card matching reference */}
+          <RevealOnScroll delay={150}>
           <div className="mt-6 max-w-sm sm:mt-8">
             {/* Green banner header */}
             <div className="rounded-t-lg bg-[#22c55e] px-5 py-2.5 sm:px-6 sm:py-3">
@@ -67,8 +71,10 @@ export default function InfoPenting() {
               </div>
             </div>
           </div>
+          </RevealOnScroll>
 
           {/* CTA button */}
+          <RevealOnScroll delay={300}>
           <div className="mt-5 sm:mt-6">
             <a
               href="#mohon-sekarang"
@@ -77,6 +83,7 @@ export default function InfoPenting() {
               Mohon Sekarang
             </a>
           </div>
+          </RevealOnScroll>
         </div>
       </div>
       </div>

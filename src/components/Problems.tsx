@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RevealOnScroll from "./RevealOnScroll";
 
 const problems = [
   "Ingin menyelesaikan hutang lama tetapi komitmen bulanan tinggi",
@@ -32,19 +33,23 @@ export default function Problems() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-10 sm:px-6 md:px-8 lg:py-16">
+        <RevealOnScroll>
         <h2 className="text-center text-2xl font-bold text-white sm:text-3xl md:text-4xl">
           Anda mempunyai masalah ini?
         </h2>
+        </RevealOnScroll>
+        <RevealOnScroll delay={100}>
         <p className="mt-2 text-center text-sm text-white/90 sm:mt-3 sm:text-base">
           Kalau ya, anda tidak keseorangan. Ramai pelanggan kami datang dengan
           situasi yang sama.
         </p>
+        </RevealOnScroll>
 
         {/* Problem cards — 2 col on mobile, 3 on sm+ */}
         <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:gap-5 max-w-3xl mx-auto sm:mt-8">
-          {problems.map((title) => (
+          {problems.map((title, idx) => (
+            <RevealOnScroll key={title} delay={idx * 100}>
             <div
-              key={title}
               className="flex flex-col items-center gap-2 rounded-xl bg-white/15 backdrop-blur-sm border border-white/20 p-3 text-center transition-transform hover:scale-105 sm:rounded-2xl sm:p-4"
             >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 sm:h-12 sm:w-12">
@@ -55,6 +60,7 @@ export default function Problems() {
               </div>
               <p className="text-[11px] font-medium text-white leading-snug sm:text-sm">{title}</p>
             </div>
+            </RevealOnScroll>
           ))}
         </div>
       </div>

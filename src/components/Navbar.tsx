@@ -6,9 +6,9 @@ import Image from "next/image";
 
 const navLinks = [
   { label: "Mohon Sekarang", href: "#mohon-sekarang" },
-  { label: "Cabaran Anda?", href: "#cabaran" },
+  { label: "Cabaran Anda", href: "#cabaran" },
   { label: "Solusi Kami", href: "#solusi-kami" },
-  { label: "Kenapa Kami?", href: "#kenapa-kami" },
+  { label: "Kenapa Kami", href: "#kenapa-kami" },
   { label: "Kalkulator Pinjaman", href: "#kalkulator-pinjaman" },
   { label: "Info Penting", href: "#info-penting" },
   { label: "Testimoni", href: "#testimoni" },

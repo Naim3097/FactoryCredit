@@ -68,15 +68,25 @@ export default function Problems() {
       className="relative overflow-hidden -mt-1"
       aria-label="Masalah kewangan"
     >
-      <div className="min-h-[580px] sm:min-h-[500px] lg:min-h-0 lg:[aspect-ratio:1920/1400]">
-      {/* Full-bleed background image */}
+      <div className="min-h-[750px] sm:min-h-[650px] lg:min-h-0 lg:[aspect-ratio:1920/1400]">
+      {/* Full-bleed background image — separate mobile and desktop */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile background */}
+        <Image
+          src="/images/problems-bg-mobile.png"
+          alt="Orang yang menghadapi masalah kewangan"
+          fill
+          className="object-cover object-bottom lg:hidden"
+          sizes="(max-width: 1023px) 100vw, 0px"
+          loading="lazy"
+        />
+        {/* Desktop background */}
         <Image
           src="/images/problems-bg.png"
           alt="Orang yang menghadapi masalah kewangan"
           fill
-          className="object-cover object-bottom"
-          sizes="100vw"
+          className="hidden lg:block object-cover object-bottom"
+          sizes="(min-width: 1024px) 100vw, 0px"
           loading="lazy"
         />
         {/* Top fade to blend with Challenges section */}
@@ -96,17 +106,33 @@ export default function Problems() {
         </p>
         </RevealOnScroll>
 
-        {/* Problem cards — 2 col on mobile, 3 on sm+ */}
-        <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:gap-5 max-w-3xl mx-auto sm:mt-8">
+        {/* Mobile: 2-col grid with equal-sized rectangular cards */}
+        <div className="mt-6 grid grid-cols-2 gap-3 mx-auto max-w-sm sm:max-w-md lg:hidden">
           {problems.map((item, idx) => (
             <RevealOnScroll key={item.title} delay={idx * 100}>
             <div
-              className="flex flex-col items-center gap-2 rounded-xl bg-white/15 backdrop-blur-sm border border-white/20 p-3 text-center transition-transform hover:scale-105 sm:rounded-2xl sm:p-4"
+              className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center min-h-[110px]"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 sm:h-12 sm:w-12">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20">
                 {item.icon}
               </div>
-              <p className="text-[11px] font-medium text-white leading-snug sm:text-sm">{item.title}</p>
+              <p className="text-[11px] font-medium text-white leading-snug">{item.title}</p>
+            </div>
+            </RevealOnScroll>
+          ))}
+        </div>
+
+        {/* Desktop: 3-col grid */}
+        <div className="mt-8 hidden lg:grid lg:grid-cols-3 lg:gap-5 max-w-3xl mx-auto">
+          {problems.map((item, idx) => (
+            <RevealOnScroll key={item.title} delay={idx * 100}>
+            <div
+              className="flex flex-col items-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center transition-transform hover:scale-105"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
+                {item.icon}
+              </div>
+              <p className="text-sm font-medium text-white leading-snug">{item.title}</p>
             </div>
             </RevealOnScroll>
           ))}

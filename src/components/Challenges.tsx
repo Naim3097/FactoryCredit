@@ -12,7 +12,7 @@ export default function Challenges() {
   return (
     <section id="cabaran" className="relative overflow-hidden -mb-1" aria-label="Kenapa bimbang">
       {/* Aspect ratio wrapper — auto height on mobile, fixed ratio on desktop */}
-      <div className="min-h-[700px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/1121]">
+      <div className="min-h-[620px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/1121]">
       {/* Full-bleed background image — separate mobile and desktop */}
       <div className="absolute inset-0 z-0">
         {/* Mobile background */}
@@ -47,8 +47,8 @@ export default function Challenges() {
         </RevealOnScroll>
 
         {/* Mobile: single column stacked, Desktop: split left/right */}
-        {/* Mobile view — all concerns stacked */}
-        <div className="mt-4 flex flex-col items-center gap-2.5 sm:gap-3 lg:hidden">
+        {/* Mobile view — all concerns stacked, same width */}
+        <div className="mt-4 flex flex-col items-stretch gap-2.5 sm:gap-3 lg:hidden w-full max-w-xs sm:max-w-sm mx-auto">
           {concerns.map((c, idx) => (
             <RevealOnScroll key={c} delay={idx * 150}>
             <div

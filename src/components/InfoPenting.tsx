@@ -8,7 +8,7 @@ export default function InfoPenting() {
       className="relative overflow-hidden"
       aria-label="Info Penting"
     >
-      <div className="min-h-[700px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/836]">
+      <div className="min-h-[850px] sm:min-h-[750px] lg:min-h-0 lg:[aspect-ratio:1920/836]">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         {/* Mobile background */}

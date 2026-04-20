@@ -8,34 +8,43 @@ export default function InfoPenting() {
       className="relative overflow-hidden"
       aria-label="Info Penting"
     >
-      <div className="min-h-[580px] sm:min-h-[500px] lg:min-h-0 lg:[aspect-ratio:1920/836]">
+      <div className="min-h-[700px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/836]">
       {/* Background */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile background */}
+        <Image
+          src="/images/info-penting-bg-mobile.png"
+          alt="Pelanggan gembira selepas mendapat pinjaman"
+          fill
+          className="object-cover object-bottom lg:hidden"
+          sizes="(max-width: 1023px) 100vw, 0px"
+          loading="lazy"
+        />
+        {/* Desktop background */}
         <Image
           src="/images/info-penting-bg.png"
           alt="Pelanggan gembira selepas mendapat pinjaman"
           fill
-          className="object-cover object-center"
-          sizes="100vw"
+          className="hidden lg:block object-cover object-center"
+          sizes="(min-width: 1024px) 100vw, 0px"
           loading="lazy"
         />
-        {/* Mobile overlay for text readability */}
-        <div className="absolute inset-0 bg-black/30 lg:hidden" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 py-10 sm:px-6 md:px-8 lg:py-24 flex items-center justify-center lg:justify-end min-h-full">
-        <div className="w-full max-w-lg">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 py-8 sm:px-6 md:px-8 lg:py-24 flex items-start lg:items-center justify-start lg:justify-end min-h-full">
+        <div className="w-full max-w-xs sm:max-w-sm lg:max-w-lg">
           {/* Header */}
           <RevealOnScroll>
           <div>
-            <p className="text-xs font-medium text-white/80 sm:text-sm">Info Penting</p>
+            <p className="text-xs font-medium text-white/80 sm:text-sm italic">Info Penting</p>
             <h2 className="mt-1 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
               Pembayaran Fleksibel
             </h2>
-            <p className="mt-3 text-xs text-white/90 sm:mt-4 sm:text-sm">
-              Tempoh minimum : 12 bulan | Tempoh maksimum : 60 bulan | APR
-              maksimum : 18% setahun
-            </p>
+            <div className="mt-3 space-y-0.5 text-xs text-white/90 sm:mt-4 sm:text-sm lg:space-y-0">
+              <p className="font-semibold">Tempoh minimum : 12 bulan</p>
+              <p className="font-semibold">Tempoh maksimum : 60 bulan</p>
+              <p className="font-semibold">APR maksimum : 18% setahun</p>
+            </div>
           </div>
           </RevealOnScroll>
 
@@ -78,7 +87,7 @@ export default function InfoPenting() {
           <div className="mt-5 sm:mt-6">
             <a
               href="#mohon-sekarang"
-              className="inline-block rounded-md bg-[#2196F3] px-6 py-2.5 text-xs font-bold text-white shadow-lg transition-transform hover:scale-105 sm:px-8 sm:py-3 sm:text-sm"
+              className="inline-block rounded-full bg-[#22c55e] lg:bg-[#2196F3] lg:rounded-md px-6 py-2.5 text-xs font-bold text-white shadow-lg transition-transform hover:scale-105 sm:px-8 sm:py-3 sm:text-sm"
             >
               Mohon Sekarang
             </a>

@@ -131,13 +131,23 @@ export default function Hero() {
       <div className="min-h-[700px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/836]">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile background */}
         <Image
           src="/images/hero-bg.png"
           alt="Pegawai Factory Credit di pejabat"
           fill
-          className="object-cover object-top"
+          className="object-cover object-top lg:hidden"
           priority
-          sizes="100vw"
+          sizes="(max-width: 1023px) 100vw, 0px"
+        />
+        {/* Desktop background */}
+        <Image
+          src="/images/hero-bg-desktop.png"
+          alt="Pegawai Factory Credit di pejabat"
+          fill
+          className="hidden lg:block object-cover object-top"
+          priority
+          sizes="(min-width: 1024px) 100vw, 0px"
         />
         {/* Mobile overlay for text readability */}
         <div className="absolute inset-0 bg-primary-deeper/40 lg:hidden" />

@@ -12,15 +12,25 @@ export default function Challenges() {
   return (
     <section id="cabaran" className="relative overflow-hidden -mb-1" aria-label="Kenapa bimbang">
       {/* Aspect ratio wrapper — auto height on mobile, fixed ratio on desktop */}
-      <div className="min-h-[520px] sm:min-h-[480px] lg:min-h-0 lg:[aspect-ratio:1920/1121]">
-      {/* Full-bleed background image */}
+      <div className="min-h-[700px] sm:min-h-[600px] lg:min-h-0 lg:[aspect-ratio:1920/1121]">
+      {/* Full-bleed background image — separate mobile and desktop */}
       <div className="absolute inset-0 z-0">
+        {/* Mobile background */}
+        <Image
+          src="/images/challenges-bg-mobile.png"
+          alt="Lelaki yang bimbang memikirkan pinjaman"
+          fill
+          className="object-cover object-bottom lg:hidden"
+          sizes="(max-width: 1023px) 100vw, 0px"
+          loading="lazy"
+        />
+        {/* Desktop background */}
         <Image
           src="/images/challenges-bg.png"
           alt="Lelaki yang bimbang memikirkan pinjaman"
           fill
-          className="object-cover object-center"
-          sizes="100vw"
+          className="hidden lg:block object-cover object-center"
+          sizes="(min-width: 1024px) 100vw, 0px"
           loading="lazy"
         />
         {/* Bottom fade to blend into Problems section */}
@@ -36,14 +46,28 @@ export default function Challenges() {
         </h2>
         </RevealOnScroll>
 
-        {/* Mobile: single column, Desktop: split left/right */}
-        <div className="mt-4 flex flex-col items-center gap-2 sm:mt-8 sm:gap-3 lg:flex-row lg:justify-center lg:gap-12 flex-1 lg:mt-40">
+        {/* Mobile: single column stacked, Desktop: split left/right */}
+        {/* Mobile view — all concerns stacked */}
+        <div className="mt-4 flex flex-col items-center gap-2.5 sm:gap-3 lg:hidden">
+          {concerns.map((c, idx) => (
+            <RevealOnScroll key={c} delay={idx * 150}>
+            <div
+              className="rounded-full border-2 border-white/40 bg-white/10 px-5 py-2.5 text-center text-xs font-medium text-white backdrop-blur-sm sm:px-6 sm:py-3 sm:text-sm"
+            >
+              {c}
+            </div>
+            </RevealOnScroll>
+          ))}
+        </div>
+
+        {/* Desktop view — split left/right */}
+        <div className="hidden lg:flex lg:flex-row lg:justify-center lg:gap-12 flex-1 lg:mt-40">
           {/* Left concerns */}
-          <div className="flex flex-col gap-2 w-full max-w-xs sm:max-w-sm sm:gap-3 lg:w-1/3 lg:max-w-none lg:gap-16">
+          <div className="flex flex-col gap-2 lg:w-1/3 lg:max-w-none lg:gap-16">
             {concerns.filter((_, i) => i % 2 === 0).map((c, idx) => (
               <RevealOnScroll key={c} delay={idx * 150}>
               <div
-                className="rounded-full border-2 border-white/40 bg-white/10 px-4 py-2 text-center text-xs font-medium text-white backdrop-blur-sm sm:px-5 sm:py-2.5 sm:text-sm lg:px-8 lg:py-3.5 lg:text-base"
+                className="rounded-full border-2 border-white/40 bg-white/10 lg:px-8 lg:py-3.5 lg:text-base text-center font-medium text-white backdrop-blur-sm"
               >
                 {c}
               </div>
@@ -52,14 +76,14 @@ export default function Challenges() {
           </div>
 
           {/* Spacer for center (image is background) */}
-          <div className="hidden lg:block lg:w-1/3" />
+          <div className="lg:w-1/3" />
 
           {/* Right concerns */}
-          <div className="flex flex-col gap-2 w-full max-w-xs sm:max-w-sm sm:gap-3 lg:w-1/3 lg:max-w-none lg:gap-16">
+          <div className="flex flex-col gap-2 lg:w-1/3 lg:max-w-none lg:gap-16">
             {concerns.filter((_, i) => i % 2 === 1).map((c, idx) => (
               <RevealOnScroll key={c} delay={(idx + 1) * 150}>
               <div
-                className="rounded-full border-2 border-white/40 bg-white/10 px-4 py-2 text-center text-xs font-medium text-white backdrop-blur-sm sm:px-5 sm:py-2.5 sm:text-sm lg:px-8 lg:py-3.5 lg:text-base"
+                className="rounded-full border-2 border-white/40 bg-white/10 lg:px-8 lg:py-3.5 lg:text-base text-center font-medium text-white backdrop-blur-sm"
               >
                 {c}
               </div>

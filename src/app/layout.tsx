@@ -24,6 +24,28 @@ const brandonGrotesque = localFont({
   display: "swap",
 });
 
+const satoshi = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Satoshi-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Satoshi-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Satoshi-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+  ],
+  variable: "--font-satoshi",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Factory Credit - Pinjaman Peribadi Patuh Syariah",
   description:
@@ -121,7 +143,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ms" className={`${brandonGrotesque.variable} h-full antialiased`}>
+    <html lang="ms" className={`${satoshi.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"

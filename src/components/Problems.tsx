@@ -68,7 +68,7 @@ export default function Problems() {
       className="relative overflow-hidden -mt-1"
       aria-label="Masalah kewangan"
     >
-      <div className="min-h-[580px] sm:min-h-[500px] lg:min-h-0 lg:[aspect-ratio:1920/1100]">
+      <div className="min-h-[580px] sm:min-h-[500px] lg:min-h-0 lg:[aspect-ratio:1920/1400]">
       {/* Full-bleed background image */}
       <div className="absolute inset-0 z-0">
         <Image

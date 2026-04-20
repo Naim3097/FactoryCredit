@@ -2,28 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const brandonGrotesque = localFont({
-  src: [
-    {
-      path: "../../public/fonts/BrandonGrotesque-Regular.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BrandonGrotesque-Medium.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/BrandonGrotesque-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-brandon",
-  display: "swap",
-});
-
 const satoshi = localFont({
   src: [
     {

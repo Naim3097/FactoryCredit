@@ -12,10 +12,6 @@
   --color-blue-gradient-end: #33ccee;
   --color-footer-bg: #009ed6;
   --font-sans: var(--font-satoshi);
-  --font-satoshi: 'Satoshi', Arial, Helvetica, sans-serif;
-  --font-satoshi-bold: 'Satoshi', Arial, Helvetica, sans-serif;
-  --font-satoshi-regular: 'Satoshi', Arial, Helvetica, sans-serif;
-  --font-satoshi-light: 'Satoshi', Arial, Helvetica, sans-serif;
   --animate-marquee: marquee 20s linear infinite;
 }
 
@@ -50,6 +46,19 @@ body {
   background: #ffffff;
   color: #171717;
   font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+h1, .font-h1 {
+  font-weight: 700;
+}
+
+h2, .font-h2 {
+  font-weight: 400;
+}
+
+p, li, span, label, input, textarea, select {
+  font-weight: 300;
 }
 
 /* Range slider styles for loan calculator */

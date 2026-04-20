@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const BRANCH_EMAILS: Record<string, string> = {
   satok: "kuching@factorycredit.com.my",
   samarahan: "ks@factorycredit.com.my",
@@ -72,6 +70,8 @@ export async function POST(request: Request) {
     }
 
     const branchEmail = BRANCH_EMAILS[cawangan];
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const htmlContent = `
       <h2>Permohonan Pinjaman Baru</h2>

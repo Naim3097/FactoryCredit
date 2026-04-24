@@ -137,7 +137,8 @@ export default function Hero() {
             `*Cawangan:* ${BRANCH_LABELS[formData.cawangan]}`,
           ].join("\n");
           const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
-          window.open(waUrl, "_blank");
+          // Use direct redirect (not window.open) so iOS Safari doesn't block it
+          window.location.href = waUrl;
         }
 
         setFormData({

@@ -17,7 +17,8 @@ export default function InfoPenting() {
           alt="Pelanggan gembira selepas mendapat pinjaman"
           fill
           className="object-cover object-bottom lg:hidden"
-          sizes="(max-width: 1023px) 100vw, 0px"
+          quality={90}
+          sizes="(max-width: 1023px) 150vw, 0px"
           loading="lazy"
         />
         {/* Desktop background */}
@@ -26,6 +27,7 @@ export default function InfoPenting() {
           alt="Pelanggan gembira selepas mendapat pinjaman"
           fill
           className="hidden lg:block object-cover object-center"
+          quality={90}
           sizes="(min-width: 1024px) 100vw, 0px"
           loading="lazy"
         />

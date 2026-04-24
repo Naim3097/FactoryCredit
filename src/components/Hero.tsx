@@ -137,7 +137,8 @@ export default function Hero() {
           fill
           className="object-cover object-top lg:hidden"
           priority
-          sizes="(max-width: 1023px) 100vw, 0px"
+          quality={90}
+          sizes="(max-width: 1023px) 200vw, 0px"
         />
         {/* Desktop background */}
         <Image
@@ -146,6 +147,7 @@ export default function Hero() {
           fill
           className="hidden lg:block object-cover object-top"
           priority
+          quality={90}
           sizes="(min-width: 1024px) 100vw, 0px"
         />
         {/* Mobile overlay for text readability */}

@@ -69,35 +69,44 @@ export async function POST(request: Request) {
 
     const branchEmail = BRANCH_EMAILS[cawangan];
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    // Email (non-blocking — skip if RESEND_API_KEY not set or placeholder)
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey && !resendKey.includes("xxxx")) {
+      try {
+        const resend = new Resend(resendKey);
 
-    const htmlContent = `
-      <h2>Permohonan Pinjaman Baru</h2>
-      <table style="border-collapse:collapse;width:100%;max-width:600px;">
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Jumlah Pinjaman</td><td style="padding:8px;border:1px solid #ddd;">RM${jumlahPinjaman}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Umur</td><td style="padding:8px;border:1px solid #ddd;">${umur} tahun</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">No. IC</td><td style="padding:8px;border:1px solid #ddd;">${noIC}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Nama</td><td style="padding:8px;border:1px solid #ddd;">${nama}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Email</td><td style="padding:8px;border:1px solid #ddd;">${email}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">No. Telefon</td><td style="padding:8px;border:1px solid #ddd;">${telefon}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Sektor Pekerjaan</td><td style="padding:8px;border:1px solid #ddd;">${SEKTOR_LABELS[sektorPekerjaan] || sektorPekerjaan}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Gaji Kasar</td><td style="padding:8px;border:1px solid #ddd;">RM${gajiKasar}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Cawangan</td><td style="padding:8px;border:1px solid #ddd;">${CAWANGAN_LABELS[cawangan] || cawangan}</td></tr>
-        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Sumber Maklumat</td><td style="padding:8px;border:1px solid #ddd;">${SUMBER_LABELS[sumberInfo] || sumberInfo || "-"}</td></tr>
-      </table>
-    `;
+        const htmlContent = `
+          <h2>Permohonan Pinjaman Baru</h2>
+          <table style="border-collapse:collapse;width:100%;max-width:600px;">
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Jumlah Pinjaman</td><td style="padding:8px;border:1px solid #ddd;">RM${jumlahPinjaman}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Umur</td><td style="padding:8px;border:1px solid #ddd;">${umur} tahun</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">No. IC</td><td style="padding:8px;border:1px solid #ddd;">${noIC}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Nama</td><td style="padding:8px;border:1px solid #ddd;">${nama}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Email</td><td style="padding:8px;border:1px solid #ddd;">${email}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">No. Telefon</td><td style="padding:8px;border:1px solid #ddd;">${telefon}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Sektor Pekerjaan</td><td style="padding:8px;border:1px solid #ddd;">${SEKTOR_LABELS[sektorPekerjaan] || sektorPekerjaan}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Gaji Kasar</td><td style="padding:8px;border:1px solid #ddd;">RM${gajiKasar}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Cawangan</td><td style="padding:8px;border:1px solid #ddd;">${CAWANGAN_LABELS[cawangan] || cawangan}</td></tr>
+            <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Sumber Maklumat</td><td style="padding:8px;border:1px solid #ddd;">${SUMBER_LABELS[sumberInfo] || sumberInfo || "-"}</td></tr>
+          </table>
+        `;
 
-    const { error } = await resend.emails.send({
-      from: "Factory Credit <onboarding@resend.dev>",
-      to: branchEmail,
-      subject: `Permohonan Pinjaman Baru - ${nama}`,
-      html: htmlContent,
-      replyTo: email,
-    });
+        const { error: emailError } = await resend.emails.send({
+          from: "Factory Credit <onboarding@resend.dev>",
+          to: branchEmail,
+          subject: `Permohonan Pinjaman Baru - ${nama}`,
+          html: htmlContent,
+          replyTo: email,
+        });
 
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json({ error: "Gagal menghantar borang." }, { status: 500 });
+        if (emailError) {
+          console.error("Resend error (non-blocking):", emailError);
+        }
+      } catch (emailErr) {
+        console.error("Resend exception (non-blocking):", emailErr);
+      }
+    } else {
+      console.warn("RESEND_API_KEY not configured — skipping email send.");
     }
 
     // Append to Google Sheet (non-blocking — don't fail the form if sheet errors)

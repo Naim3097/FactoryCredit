@@ -14,13 +14,13 @@ export default function LoanCalculator() {
   const [tenure, setTenure] = useState(18);
 
   const { monthlyPayment, totalPayment } = useMemo(() => {
-    const monthlyRate = ANNUAL_RATE / 12;
-    const monthly =
-      (amount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
-      (Math.pow(1 + monthlyRate, tenure) - 1);
+    const tenureYears = tenure / 12;
+    const totalInterest = amount * ANNUAL_RATE * tenureYears;
+    const total = amount + totalInterest;
+    const monthly = total / tenure;
     return {
-      monthlyPayment: Math.round(monthly),
-      totalPayment: Math.round(monthly * tenure),
+      monthlyPayment: Math.round(monthly * 100) / 100,
+      totalPayment: Math.round(total * 100) / 100,
     };
   }, [amount, tenure]);
 
@@ -117,7 +117,7 @@ export default function LoanCalculator() {
               <p className="mt-1 flex items-baseline justify-center gap-2 lg:justify-start">
                 <span className="text-sm text-gray-500">RM</span>
                 <span className="text-3xl font-bold text-primary-deeper sm:text-4xl">
-                  {monthlyPayment.toLocaleString()}
+                  {monthlyPayment.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </p>
             </div>
@@ -130,7 +130,7 @@ export default function LoanCalculator() {
               <p className="mt-1 flex items-baseline justify-center gap-2 lg:justify-start">
                 <span className="text-sm text-gray-500">RM</span>
                 <span className="text-3xl font-bold text-primary-deeper sm:text-4xl">
-                  {totalPayment.toLocaleString()}
+                  {totalPayment.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </p>
             </div>

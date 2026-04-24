@@ -14,9 +14,9 @@ const testimonials = [
   },
   {
     quote:
-      "Saya sangat berpuas hati dengan perkhidmatan Factory Credit. Yang penting, mereka membantu saya semasa kecemasan dan proses pun sangat pantas. Terbaik!",
-    name: "Amelia",
-    role: "Pekerja Swasta, Miri",
+        "Saya sangat berpuas hati dengan perkhidmatan Factory Credit. Yang penting, mereka membantu saya semasa kecemasan dan proses pun sangat pantas. Terbaik!",
+      name: "Amelia",
+      role: "Pekerja Swasta, Kota Samarahan",
     color: "bg-green-400",
   },
 ];

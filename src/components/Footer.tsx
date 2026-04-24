@@ -8,17 +8,8 @@ const branches = [
       "Lot 538, Ground Floor, Section 6, KTLD, Jalan Satok, 93400 Kuching, Sarawak",
     phone: "0162072017",
     phoneDisplay: "0162072017 (WS)",
-    mapUrl: "https://maps.google.com/?q=Lot+538+Ground+Floor+Section+6+KTLD+Jalan+Satok+93400+Kuching+Sarawak",
+      mapUrl: "https://www.google.com/maps/place/Factory+Credit+Sdn.+Bhd.+(Satok)/@1.553515,110.3333484,17z/data=!3m1!4b1!4m6!3m5!1s0x31fba7f18394e519:0x8fbeb808e973ba3!8m2!3d1.553515!4d110.3333484!16s%2Fg%2F11qt2m_m6k!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQyMS4wIKXMDSoASAFQAw%3D%3D",
     wa: "60162072017",
-  },
-  {
-    name: "Miri Branch",
-    address:
-      "No. 1151, 1st Floor, Miri Waterfront, Jalan Sri Dagang, 98000 Miri, Sarawak",
-    phone: "0103641788",
-    phoneDisplay: "0103641788 (WS)",
-    mapUrl: "https://maps.google.com/?q=No+1151+1st+Floor+Miri+Waterfront+Jalan+Sri+Dagang+98000+Miri+Sarawak",
-    wa: "60103641788",
   },
   {
     name: "Kota Samarahan Branch",
@@ -26,7 +17,7 @@ const branches = [
       "1st Floor, No. 8 Lot 5604, Kuching - Samarahan Expressway, Taman Uni Square, 94300 Kota Samarahan, Sarawak",
     phone: "0168868794",
     phoneDisplay: "0168868794 (WS)",
-    mapUrl: "https://maps.google.com/?q=No+8+Lot+5604+Kuching+Samarahan+Expressway+Taman+Uni+Square+94300+Kota+Samarahan+Sarawak",
+      mapUrl: "https://www.google.com/maps/place/Factory+Credit+Sdn.+Bhd.+(Kota+Samarahan)/@1.4647709,110.4148641,17z/data=!3m1!4b1!4m6!3m5!1s0x31fba17909839e8b:0x602fcb89a3de775!8m2!3d1.4647709!4d110.417439!16s%2Fg%2F11cjhzgqb0!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQyMS4wIKXMDSoASAFQAw%3D%3D",
     wa: "60168868794",
   },
   {
@@ -35,7 +26,7 @@ const branches = [
       "1st Floor, Junction 28 Jalan Keppel Bintulu, Lot 4499 Bintulu Town District, 97000 Bintulu, Sarawak",
     phone: "0143001881",
     phoneDisplay: "0143001881 (WS)",
-    mapUrl: "https://maps.google.com/?q=Junction+28+Jalan+Keppel+Bintulu+Lot+4499+Bintulu+Town+District+97000+Bintulu+Sarawak",
+      mapUrl: "https://www.google.com/maps/place/Factory+Credit+Sdn.+Bhd.+(Bintulu)/@3.1726755,113.0375817,17z/data=!3m1!4b1!4m6!3m5!1s0x321dc163b87656d7:0xa108ba467a5d74e4!8m2!3d3.1726755!4d113.0401566!16s%2Fg%2F11xgy5f087!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQyMS4wIKXMDSoASAFQAw%3D%3D",
     wa: "60143001881",
   },
 ];
@@ -66,7 +57,7 @@ export default function Footer() {
               agensi pinjaman berlesen di bawah Akta Pemberi Pinjam Wang 1951
               yang dikawal selia oleh Kementerian Perumahan dan Kerajaan
               Tempatan (KPKT). Kami beroperasi dengan cawangan di Kuching, Kota
-              Samarahan, Miri dan Bintulu.
+              Samarahan dan Bintulu.
             </p>
           </div>
 

@@ -4,7 +4,6 @@ import { Resend } from "resend";
 const BRANCH_EMAILS: Record<string, string> = {
   satok: "kuching@factorycredit.com.my",
   samarahan: "ks@factorycredit.com.my",
-  miri: "miri@factorycredit.com.my",
   bintulu: "bintulu@factorycredit.com.my",
 };
 
@@ -20,7 +19,6 @@ const SEKTOR_LABELS: Record<string, string> = {
 const CAWANGAN_LABELS: Record<string, string> = {
   satok: "Satok, Kuching",
   samarahan: "Kota Samarahan",
-  miri: "Miri",
   bintulu: "Bintulu",
 };
 

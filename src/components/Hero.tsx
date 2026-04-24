@@ -6,7 +6,6 @@ import { useState } from "react";
 const BRANCH_EMAILS: Record<string, string> = {
   satok: "kuching@factorycredit.com.my",
   samarahan: "ks@factorycredit.com.my",
-  miri: "miri@factorycredit.com.my",
   bintulu: "bintulu@factorycredit.com.my",
 };
 
@@ -311,7 +310,6 @@ export default function Hero() {
                   </option>
                   <option value="satok">Satok, Kuching</option>
                   <option value="samarahan">Kota Samarahan</option>
-                  <option value="miri">Miri</option>
                   <option value="bintulu">Bintulu</option>
                 </select>
               </div>

@@ -110,7 +110,13 @@ export async function POST(request: Request) {
     }
 
     // Append to Google Sheet (non-blocking — don't fail the form if sheet errors)
-    const sheetUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+    // Each branch has its own Sheet + webhook URL
+    const BRANCH_SHEET_URLS: Record<string, string | undefined> = {
+      satok: process.env.GOOGLE_SHEET_WEBHOOK_URL_SATOK,
+      samarahan: process.env.GOOGLE_SHEET_WEBHOOK_URL_SAMARAHAN,
+      bintulu: process.env.GOOGLE_SHEET_WEBHOOK_URL_BINTULU,
+    };
+    const sheetUrl = BRANCH_SHEET_URLS[cawangan] || process.env.GOOGLE_SHEET_WEBHOOK_URL;
     if (sheetUrl) {
       try {
         await fetch(sheetUrl, {

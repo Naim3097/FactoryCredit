@@ -100,6 +100,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Gagal menghantar borang." }, { status: 500 });
     }
 
+    // Append to Google Sheet (non-blocking — don't fail the form if sheet errors)
+    const sheetUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+    if (sheetUrl) {
+      try {
+        await fetch(sheetUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            cawangan,
+            nama,
+            noIC,
+            telefon,
+            email,
+            umur,
+            sektorPekerjaan: SEKTOR_LABELS[sektorPekerjaan] || sektorPekerjaan,
+            gajiKasar,
+            jumlahPinjaman,
+            sumberInfo: SUMBER_LABELS[sumberInfo] || sumberInfo || "-",
+          }),
+        });
+      } catch (sheetError) {
+        console.error("Google Sheet error:", sheetError);
+      }
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Form submission error:", error);

@@ -9,6 +9,27 @@ const BRANCH_EMAILS: Record<string, string> = {
   bintulu: "bintulu@factorycredit.com.my",
 };
 
+const BRANCH_WHATSAPP: Record<string, string> = {
+  satok: "60162072017",
+  samarahan: "60168868794",
+  bintulu: "60143001881",
+};
+
+const BRANCH_LABELS: Record<string, string> = {
+  satok: "Satok, Kuching",
+  samarahan: "Kota Samarahan",
+  bintulu: "Bintulu",
+};
+
+const SEKTOR_LABELS: Record<string, string> = {
+  "penjawat-awam": "Penjawat Awam",
+  "pekerja-glc": "Pekerja GLC",
+  "pekerja-swasta": "Pekerja Swasta",
+  "bekerja-sendiri": "Bekerja Sendiri",
+  freelance: "Freelance/Pekerja Gig",
+  pelajar: "Pelajar",
+};
+
 export default function Hero() {
   const [formData, setFormData] = useState({
     jumlahPinjaman: "",
@@ -98,6 +119,27 @@ export default function Hero() {
 
       if (res.ok) {
         setSubmitStatus("success");
+
+        // Open WhatsApp with pre-filled message to the selected branch
+        const waNumber = BRANCH_WHATSAPP[formData.cawangan];
+        if (waNumber) {
+          const message = [
+            `Salam, saya ingin memohon pinjaman.`,
+            ``,
+            `*Nama:* ${formData.nama}`,
+            `*No. IC:* ${formData.noIC}`,
+            `*Telefon:* ${formData.telefon}`,
+            `*Email:* ${formData.email}`,
+            `*Umur:* ${formData.umur} tahun`,
+            `*Sektor Pekerjaan:* ${SEKTOR_LABELS[formData.sektorPekerjaan] || formData.sektorPekerjaan}`,
+            `*Gaji Kasar:* RM${formData.gajiKasar}`,
+            `*Jumlah Pinjaman:* RM${formData.jumlahPinjaman}`,
+            `*Cawangan:* ${BRANCH_LABELS[formData.cawangan]}`,
+          ].join("\n");
+          const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+          window.open(waUrl, "_blank");
+        }
+
         setFormData({
           jumlahPinjaman: "",
           umur: "",

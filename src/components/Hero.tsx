@@ -69,9 +69,22 @@ export default function Hero() {
       // Max 12 digits
       const capped = digits.slice(0, 12);
       setFormData((prev) => ({ ...prev, [name]: capped }));
+    } else if (name === "noIC") {
+      // Exactly 12 digits max
+      const capped = digits.slice(0, 12);
+      setFormData((prev) => ({ ...prev, [name]: capped }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: digits }));
     }
+  };
+
+  // Disallow digits (used for Nama)
+  const handleNoDigitsField = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    const stripped = value.replace(/\d/g, "");
+    setFormData((prev) => ({ ...prev, [name]: stripped }));
   };
 
   const handleChange = (
@@ -97,6 +110,16 @@ export default function Hero() {
     const umur = Number(formData.umur);
     if (umur < 21 || umur > 60) {
       alert("Umur mestilah antara 21 hingga 60 tahun.");
+      return;
+    }
+
+    if (formData.noIC.length !== 12 || !/^\d{12}$/.test(formData.noIC)) {
+      alert("No. IC mestilah 12 digit.");
+      return;
+    }
+
+    if (/\d/.test(formData.nama) || formData.nama.trim() === "") {
+      alert("Nama tidak boleh mengandungi nombor.");
       return;
     }
 
@@ -255,6 +278,8 @@ export default function Hero() {
                   onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
                   className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
+                  pattern="\d+"
+                  title="Hanya digit (1000 - 50000)"
                   minLength={4}
                   maxLength={5}
                 />
@@ -270,6 +295,8 @@ export default function Hero() {
                   onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
                   className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
+                  pattern="\d{2}"
+                  title="Hanya digit (21 - 60)"
                   minLength={2}
                   maxLength={2}
                 />
@@ -277,12 +304,18 @@ export default function Hero() {
               <div className="border-b border-gray-300">
                 <input
                   type="text"
+                  inputMode="numeric"
                   name="noIC"
-                  placeholder="No. IC"
+                  placeholder="No. IC (12 digit)"
                   value={formData.noIC}
-                  onChange={handleChange}
+                  onChange={handleDigitField}
+                  onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
                   className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
+                  pattern="\d{12}"
+                  title="No. IC mestilah 12 digit"
+                  minLength={12}
+                  maxLength={12}
                 />
               </div>
               <div className="border-b border-gray-300">
@@ -291,9 +324,12 @@ export default function Hero() {
                   name="nama"
                   placeholder="Nama"
                   value={formData.nama}
-                  onChange={handleChange}
+                  onChange={handleNoDigitsField}
+                  onPaste={(e) => { if (/\d/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
                   className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
+                  pattern="[^\d]+"
+                  title="Nama tidak boleh mengandungi nombor"
                 />
               </div>
               <div className="border-b border-gray-300">
@@ -318,6 +354,8 @@ export default function Hero() {
                   onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
                   className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
+                  pattern="\d{10,12}"
+                  title="No. Telefon mestilah 10 - 12 digit"
                   minLength={10}
                   maxLength={12}
                 />

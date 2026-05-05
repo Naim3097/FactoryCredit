@@ -47,8 +47,11 @@ export default function Hero() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [waUrl, setWaUrl] = useState<string>("");
   const [showWaModal, setShowWaModal] = useState(false);
+  const [showEmptyErrors, setShowEmptyErrors] = useState(false);
 
-  const isFormComplete = Object.values(formData).every((v) => v.trim() !== "");
+  const isEmpty = (name: keyof typeof formData) => formData[name].trim() === "";
+  const fieldBorder = (name: keyof typeof formData) =>
+    showEmptyErrors && isEmpty(name) ? "border-red-500" : "border-gray-300";
 
   // Only allow digits for specified fields
   const handleDigitField = (
@@ -105,6 +108,21 @@ export default function Hero() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Highlight any empty fields and stop here so the user can fill them in
+    const firstEmpty = (Object.keys(formData) as (keyof typeof formData)[]).find(
+      (k) => formData[k].trim() === ""
+    );
+    if (firstEmpty) {
+      setShowEmptyErrors(true);
+      const el = document.querySelector<HTMLElement>(`[name="${firstEmpty}"]`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.focus({ preventScroll: true });
+      }
+      return;
+    }
+    setShowEmptyErrors(false);
 
     // Client-side validation
     const pinjaman = Number(formData.jumlahPinjaman);
@@ -278,8 +296,8 @@ export default function Hero() {
               Borang Daftar Pinjaman
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-2.5" suppressHydrationWarning>
-              <div className="border-b border-gray-300">
+            <form onSubmit={handleSubmit} className="space-y-2.5" noValidate suppressHydrationWarning>
+              <div className={`border-b ${fieldBorder("jumlahPinjaman")}`}>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -296,7 +314,7 @@ export default function Hero() {
                   maxLength={5}
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("umur")}`}>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -313,7 +331,7 @@ export default function Hero() {
                   maxLength={2}
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("noIC")}`}>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -330,7 +348,7 @@ export default function Hero() {
                   maxLength={12}
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("nama")}`}>
                 <input
                   type="text"
                   name="nama"
@@ -344,7 +362,7 @@ export default function Hero() {
                   title="Nama tidak boleh mengandungi nombor"
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("email")}`}>
                 <input
                   type="email"
                   name="email"
@@ -355,7 +373,7 @@ export default function Hero() {
                   required
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("telefon")}`}>
                 <input
                   type="tel"
                   inputMode="numeric"
@@ -372,12 +390,12 @@ export default function Hero() {
                   maxLength={12}
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("sektorPekerjaan")}`}>
                 <select
                   name="sektorPekerjaan"
                   value={formData.sektorPekerjaan}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-1.5 text-xs text-gray-400 lg:text-sm outline-none"
+                  className={`w-full bg-transparent py-1.5 text-xs lg:text-sm outline-none ${formData.sektorPekerjaan ? "text-gray-800" : "text-gray-400"}`}
                   required
                 >
                   <option value="" disabled>
@@ -391,7 +409,7 @@ export default function Hero() {
                   <option value="pelajar">Pelajar</option>
                 </select>
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("gajiKasar")}`}>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -408,12 +426,12 @@ export default function Hero() {
                   maxLength={6}
                 />
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("cawangan")}`}>
                 <select
                   name="cawangan"
                   value={formData.cawangan}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-1.5 text-xs text-gray-400 lg:text-sm outline-none"
+                  className={`w-full bg-transparent py-1.5 text-xs lg:text-sm outline-none ${formData.cawangan ? "text-gray-800" : "text-gray-400"}`}
                   required
                 >
                   <option value="" disabled>
@@ -424,12 +442,12 @@ export default function Hero() {
                   <option value="bintulu">Bintulu</option>
                 </select>
               </div>
-              <div className="border-b border-gray-300">
+              <div className={`border-b ${fieldBorder("sumberInfo")}`}>
                 <select
                   name="sumberInfo"
                   value={formData.sumberInfo}
                   onChange={handleChange}
-                  className="w-full bg-transparent py-1.5 text-xs text-gray-400 lg:text-sm outline-none"
+                  className={`w-full bg-transparent py-1.5 text-xs lg:text-sm outline-none ${formData.sumberInfo ? "text-gray-800" : "text-gray-400"}`}
                   required
                 >
                   <option value="" disabled>
@@ -446,11 +464,16 @@ export default function Hero() {
 
               <button
                 type="submit"
-                disabled={submitting || !isFormComplete}
+                disabled={submitting}
                 className="mt-1 rounded-full bg-primary px-6 py-2 text-xs font-bold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm"
               >
                 {submitting ? "Menghantar..." : "Hantar"}
               </button>
+              {showEmptyErrors && (
+                <p className="text-xs text-red-500">
+                  Sila lengkapkan semua ruangan yang ditandakan.
+                </p>
+              )}
 
               {submitStatus === "success" && (
                 <p className="text-xs text-accent-green">

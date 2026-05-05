@@ -48,6 +48,8 @@ export default function Hero() {
   const [waUrl, setWaUrl] = useState<string>("");
   const [showWaModal, setShowWaModal] = useState(false);
 
+  const isFormComplete = Object.values(formData).every((v) => v.trim() !== "");
+
   // Only allow digits for specified fields
   const handleDigitField = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -72,6 +74,10 @@ export default function Hero() {
     } else if (name === "noIC") {
       // Exactly 12 digits max
       const capped = digits.slice(0, 12);
+      setFormData((prev) => ({ ...prev, [name]: capped }));
+    } else if (name === "gajiKasar") {
+      // Max 6 digits (up to RM999,999)
+      const capped = digits.slice(0, 6);
       setFormData((prev) => ({ ...prev, [name]: capped }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: digits }));
@@ -126,6 +132,12 @@ export default function Hero() {
     const telefonLen = formData.telefon.length;
     if (telefonLen < 10 || telefonLen > 12) {
       alert("No. Telefon mestilah 10 hingga 12 digit.");
+      return;
+    }
+
+    const gaji = Number(formData.gajiKasar);
+    if (!/^\d+$/.test(formData.gajiKasar) || gaji < 2000) {
+      alert("Gaji Kasar mestilah minimum RM2,000 (digit sahaja).");
       return;
     }
 
@@ -382,12 +394,18 @@ export default function Hero() {
               <div className="border-b border-gray-300">
                 <input
                   type="text"
+                  inputMode="numeric"
                   name="gajiKasar"
                   placeholder="Gaji Kasar (Minimum RM2000)"
                   value={formData.gajiKasar}
-                  onChange={handleChange}
+                  onChange={handleDigitField}
+                  onPaste={(e) => { if (!/^\d+$/.test(e.clipboardData.getData("text"))) e.preventDefault(); }}
                   className="w-full bg-transparent py-1.5 text-xs text-gray-800 lg:text-sm placeholder-gray-400 outline-none"
                   required
+                  pattern="\d+"
+                  title="Hanya digit (Minimum 2000)"
+                  minLength={4}
+                  maxLength={6}
                 />
               </div>
               <div className="border-b border-gray-300">
@@ -428,8 +446,8 @@ export default function Hero() {
 
               <button
                 type="submit"
-                disabled={submitting}
-                className="mt-1 rounded-full bg-primary px-6 py-2 text-xs font-bold text-white transition-colors hover:bg-primary-dark disabled:opacity-50 sm:text-sm"
+                disabled={submitting || !isFormComplete}
+                className="mt-1 rounded-full bg-primary px-6 py-2 text-xs font-bold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm"
               >
                 {submitting ? "Menghantar..." : "Hantar"}
               </button>

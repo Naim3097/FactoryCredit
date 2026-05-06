@@ -10,6 +10,15 @@ import LoanCalculator from "@/components/LoanCalculator";
 import InfoPenting from "@/components/InfoPenting";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
+import type {
+  ChallengesData,
+  FooterData,
+  HeroData,
+  InfoPentingData,
+  ProblemsData,
+  Testimonial,
+  WhyChooseUsData,
+} from "@/types/cms";
 
 export const revalidate = 60;
 
@@ -30,14 +39,14 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <Hero data={hero} />
-      <Challenges data={challenges} />
-      <Problems data={problems} />
-      <WhyChooseUs data={whyChooseUs} />
+      <Hero data={hero as unknown as HeroData} />
+      <Challenges data={challenges as unknown as ChallengesData} />
+      <Problems data={problems as unknown as ProblemsData} />
+      <WhyChooseUs data={whyChooseUs as unknown as WhyChooseUsData} />
       <LoanCalculator />
-      <InfoPenting data={infoPenting} />
-      <Testimonials items={testimonials.docs} />
-      <Footer data={footer} />
+      <InfoPenting data={infoPenting as unknown as InfoPentingData} />
+      <Testimonials items={testimonials.docs as unknown as Testimonial[]} />
+      <Footer data={footer as unknown as FooterData} />
     </>
   );
 }

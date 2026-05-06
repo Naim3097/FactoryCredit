@@ -24,13 +24,7 @@ const SEKTOR_LABELS: Record<string, string> = {
   pelajar: "Pelajar",
 };
 
-type HeroData = {
-  headlineLine1: string;
-  headlineLine2: string;
-  subheadline: string;
-  bullets?: { text: string; id?: string | null }[] | null;
-  formHeading: string;
-};
+import type { HeroData } from "@/types/cms";
 
 export default function Hero({ data }: { data: HeroData }) {
   const [formData, setFormData] = useState({

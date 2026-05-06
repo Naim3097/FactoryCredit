@@ -1,12 +1,5 @@
 import RevealOnScroll from "./RevealOnScroll";
-
-type Testimonial = {
-  id: number | string;
-  quote: string;
-  name: string;
-  role: string;
-  color: "red" | "blue" | "green" | "yellow" | "purple" | string;
-};
+import type { Testimonial } from "@/types/cms";
 
 const COLOR_MAP: Record<string, string> = {
   red: "bg-red-400",

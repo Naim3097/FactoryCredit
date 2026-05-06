@@ -1,11 +1,6 @@
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
-
-type ChallengesData = {
-  heading: string;
-  concerns?: { text: string; id?: string | null }[] | null;
-  ctaBannerText: string;
-};
+import type { ChallengesData } from "@/types/cms";
 
 export default function Challenges({ data }: { data: ChallengesData }) {
   const concerns = (data.concerns ?? []).map((c) => c.text);

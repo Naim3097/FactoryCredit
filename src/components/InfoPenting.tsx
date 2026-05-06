@@ -1,15 +1,6 @@
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
-
-type InfoPentingData = {
-  eyebrow: string;
-  heading: string;
-  terms?: { text: string; id?: string | null }[] | null;
-  exampleCardTitle: string;
-  exampleCardSubtitle: string;
-  example: { amount: string; rate: string; tenure: string; monthly: string };
-  ctaLabel: string;
-};
+import type { InfoPentingData } from "@/types/cms";
 
 export default function InfoPenting({ data }: { data: InfoPentingData }) {
   const terms = data.terms ?? [];

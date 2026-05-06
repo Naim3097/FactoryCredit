@@ -1,10 +1,6 @@
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
-
-type WhyChooseUsData = {
-  heading: string;
-  reasons?: { title: string; imageUrl: string; id?: string | null }[] | null;
-};
+import type { WhyChooseUsData } from "@/types/cms";
 
 export default function WhyChooseUs({ data }: { data: WhyChooseUsData }) {
   const reasons = data.reasons ?? [];

@@ -43,11 +43,7 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-type ProblemsData = {
-  heading: string;
-  subheading: string;
-  items?: { title: string; iconKey: string; id?: string | null }[] | null;
-};
+import type { ProblemsData } from "@/types/cms";
 
 export default function Problems({ data }: { data: ProblemsData }) {
   const items = data.items ?? [];

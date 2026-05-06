@@ -1,26 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-
-type FooterData = {
-  companyDescription: string;
-  license: {
-    number: string;
-    validity: string;
-    adPermitNumber: string;
-    adPermitValidity: string;
-  };
-  operatingHours?: { text: string; id?: string | null }[] | null;
-  branches?: {
-    name: string;
-    address: string;
-    phoneDisplay: string;
-    wa: string;
-    mapUrl: string;
-    id?: string | null;
-  }[] | null;
-  copyrightText: string;
-  legalLinks: { privacyUrl: string; disclaimerUrl: string };
-};
+import type { FooterData } from "@/types/cms";
 
 export default function Footer({ data }: { data: FooterData }) {
   const branches = data.branches ?? [];

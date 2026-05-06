@@ -109,32 +109,32 @@ export default function Problems() {
         </RevealOnScroll>
 
         {/* Mobile: 2-col grid with equal-sized rectangular cards */}
-        <div className="mt-6 grid grid-cols-2 gap-3 mx-auto max-w-sm sm:max-w-md lg:hidden">
+        <div className="mt-6 grid grid-cols-2 auto-rows-fr gap-3 mx-auto max-w-sm sm:max-w-md lg:hidden">
           {problems.map((item, idx) => (
-            <RevealOnScroll key={item.title} delay={idx * 100}>
+            <RevealOnScroll key={item.title} delay={idx * 100} className="h-full">
             <div
-              className="flex flex-col items-center justify-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center min-h-[110px]"
+              className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center min-h-[110px]"
             >
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20">
                 {item.icon}
               </div>
-              <p className="text-[11px] font-medium text-white leading-snug">{item.title}</p>
+              <p className="text-xs font-medium text-white leading-snug text-balance">{item.title}</p>
             </div>
             </RevealOnScroll>
           ))}
         </div>
 
         {/* Desktop: 3-col grid */}
-        <div className="mt-8 hidden lg:grid lg:grid-cols-3 lg:gap-5 max-w-3xl mx-auto">
+        <div className="mt-8 hidden lg:grid lg:grid-cols-3 lg:auto-rows-fr lg:gap-5 max-w-3xl mx-auto">
           {problems.map((item, idx) => (
-            <RevealOnScroll key={item.title} delay={idx * 100}>
+            <RevealOnScroll key={item.title} delay={idx * 100} className="h-full">
             <div
-              className="flex flex-col items-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center transition-transform hover:scale-105"
+              className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center transition-transform hover:scale-105 min-h-[140px]"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
                 {item.icon}
               </div>
-              <p className="text-sm font-medium text-white leading-snug">{item.title}</p>
+              <p className="text-sm font-medium text-white leading-snug text-balance">{item.title}</p>
             </div>
             </RevealOnScroll>
           ))}

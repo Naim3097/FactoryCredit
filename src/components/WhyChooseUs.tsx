@@ -34,16 +34,16 @@ export default function WhyChooseUs() {
         </h2>
         </RevealOnScroll>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5 lg:gap-6">
+        <div className="mt-8 grid grid-cols-2 auto-rows-fr gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5 lg:gap-6">
           {reasons.map((r, i) => (
-            <RevealOnScroll key={r.title} delay={i * 120}>
+            <RevealOnScroll key={r.title} delay={i * 120} className={`h-full ${i === reasons.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}>
             <div
-              className={`flex flex-col items-center rounded-2xl px-4 pb-6 pt-8 text-center shadow-lg ${i === reasons.length - 1 ? 'col-span-2 sm:col-span-1' : ''}`}
+              className="flex h-full flex-col items-center justify-start rounded-2xl px-4 pb-6 pt-8 text-center shadow-lg"
               style={{
                 background: 'linear-gradient(180deg, #0A5C97 0%, #1DDDFF 100%)',
               }}
             >
-              <div className="relative mb-4 h-20 w-20 overflow-hidden rounded-full border-4 border-white/30 shadow-md sm:h-24 sm:w-24">
+              <div className="relative mb-4 h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-white/30 shadow-md sm:h-24 sm:w-24">
                 <Image
                   src={r.image}
                   alt={r.title}
@@ -53,7 +53,7 @@ export default function WhyChooseUs() {
                   loading="lazy"
                 />
               </div>
-              <p className="text-xs font-semibold text-white sm:text-sm">{r.title}</p>
+              <p className="text-xs font-semibold text-white sm:text-sm text-balance">{r.title}</p>
             </div>
             </RevealOnScroll>
           ))}

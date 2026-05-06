@@ -1,29 +1,24 @@
-const testimonials = [
-  {
-    quote: "Proses yang sangat mudah dan pantas! Terima kasih Factory Credit.",
-    name: "Syukri",
-    role: "Pekerja Swasta, Kuching",
-    color: "bg-red-400",
-  },
-  {
-    quote:
-      "Ejen sangat membantu, dari mula memohon hingga wang dimasukkan, semua soalan dijawab dengan terperinci.",
-    name: "Fatin",
-    role: "Pekerja Swasta, Bintulu",
-    color: "bg-blue-400",
-  },
-  {
-    quote:
-        "Saya sangat berpuas hati dengan perkhidmatan Factory Credit. Yang penting, mereka membantu saya semasa kecemasan dan proses pun sangat pantas. Terbaik!",
-      name: "Amelia",
-      role: "Pekerja Swasta, Kota Samarahan",
-    color: "bg-green-400",
-  },
-];
-
 import RevealOnScroll from "./RevealOnScroll";
 
-export default function Testimonials() {
+type Testimonial = {
+  id: number | string;
+  quote: string;
+  name: string;
+  role: string;
+  color: "red" | "blue" | "green" | "yellow" | "purple" | string;
+};
+
+const COLOR_MAP: Record<string, string> = {
+  red: "bg-red-400",
+  blue: "bg-blue-400",
+  green: "bg-green-400",
+  yellow: "bg-yellow-400",
+  purple: "bg-purple-400",
+};
+
+export default function Testimonials({ items }: { items: Testimonial[] }) {
+  if (!items.length) return null;
+
   return (
     <section id="testimoni" className="bg-white py-12 sm:py-16 lg:py-24 overflow-hidden" aria-label="Testimoni pelanggan">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
@@ -39,9 +34,9 @@ export default function Testimonials() {
 
       <div className="mt-8 sm:mt-12 relative">
         <div className="flex animate-marquee gap-6 w-max">
-          {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, i) => (
+          {[...items, ...items, ...items, ...items].map((t, i) => (
             <article
-              key={`${t.name}-${i}`}
+              key={`${t.id}-${i}`}
               className="flex w-[300px] shrink-0 flex-col justify-between rounded-xl border border-gray-100 bg-white p-5 shadow-sm sm:w-[350px] sm:rounded-2xl sm:p-6"
             >
               <blockquote className="text-sm leading-relaxed text-gray-700">
@@ -50,7 +45,7 @@ export default function Testimonials() {
 
               <div className="mt-6 flex items-center gap-3">
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full ${t.color} text-white text-lg`}
+                  className={`flex h-10 w-10 items-center justify-center rounded-full ${COLOR_MAP[t.color] ?? "bg-gray-400"} text-white text-lg`}
                   aria-hidden="true"
                 >
                   ☺

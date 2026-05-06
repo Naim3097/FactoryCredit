@@ -1,14 +1,15 @@
 import Image from "next/image";
 import RevealOnScroll from "./RevealOnScroll";
 
-const concerns = [
-  "Tidak pasti sama ada sah atau penipuan",
-  "Memerlukan wang segera tetapi proses dikatakan lambat",
-  "Bimbang kad bank akan ditahan",
-  "Proses rumit dan banyak dokumen diperlukan",
-];
+type ChallengesData = {
+  heading: string;
+  concerns?: { text: string; id?: string | null }[] | null;
+  ctaBannerText: string;
+};
 
-export default function Challenges() {
+export default function Challenges({ data }: { data: ChallengesData }) {
+  const concerns = (data.concerns ?? []).map((c) => c.text);
+
   return (
     <section id="cabaran" className="relative overflow-hidden -mb-1" aria-label="Kenapa bimbang">
       {/* Aspect ratio wrapper — auto height on mobile, fixed ratio on desktop */}
@@ -42,14 +43,11 @@ export default function Challenges() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 pt-8 pb-28 sm:px-6 md:px-8 sm:pt-10 lg:pt-16 lg:pb-24 flex flex-col">
         <RevealOnScroll>
         <h2 className="text-center text-xl font-bold text-white sm:text-3xl md:text-4xl lg:text-[2.5rem] leading-tight">
-          Kenapa ramai orang masih bimbang
-          <br className="hidden sm:block" />
-          <span className="sm:hidden"> </span>untuk memohon pembiayaan?
+          {data.heading}
         </h2>
         </RevealOnScroll>
 
-        {/* Mobile: single column stacked, Desktop: split left/right */}
-        {/* Mobile view — all concerns stacked, same width */}
+        {/* Mobile view — all concerns stacked */}
         <div className="mt-4 flex flex-col items-stretch gap-2.5 sm:gap-3 lg:hidden w-full max-w-xs sm:max-w-sm mx-auto">
           {concerns.map((c, idx) => (
             <RevealOnScroll key={c} delay={idx * 150}>
@@ -64,7 +62,6 @@ export default function Challenges() {
 
         {/* Desktop view — split left/right */}
         <div className="hidden lg:flex lg:flex-row lg:justify-center lg:gap-12 flex-1 lg:mt-40">
-          {/* Left concerns */}
           <div className="flex flex-col gap-2 lg:w-1/3 lg:max-w-none lg:gap-16">
             {concerns.filter((_, i) => i % 2 === 0).map((c, idx) => (
               <RevealOnScroll key={c} delay={idx * 150}>
@@ -77,10 +74,8 @@ export default function Challenges() {
             ))}
           </div>
 
-          {/* Spacer for center (image is background) */}
           <div className="lg:w-1/3" />
 
-          {/* Right concerns */}
           <div className="flex flex-col gap-2 lg:w-1/3 lg:max-w-none lg:gap-16">
             {concerns.filter((_, i) => i % 2 === 1).map((c, idx) => (
               <RevealOnScroll key={c} delay={(idx + 1) * 150}>
@@ -100,7 +95,7 @@ export default function Challenges() {
         <RevealOnScroll>
         <div className="mx-auto max-w-5xl rounded-full bg-gradient-to-r from-[#22c55e] to-[#16a34a] px-4 py-2.5 text-center sm:px-6 sm:py-3">
           <p className="text-xs font-bold text-white sm:text-base md:text-lg">
-            Sebab itu proses pembiayaan kami lebih jelas & secara bersemuka
+            {data.ctaBannerText}
           </p>
         </div>
         </RevealOnScroll>

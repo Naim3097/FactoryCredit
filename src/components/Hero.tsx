@@ -3,12 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const BRANCH_EMAILS: Record<string, string> = {
-  satok: "kuching@factorycredit.com.my",
-  samarahan: "ks@factorycredit.com.my",
-  bintulu: "bintulu@factorycredit.com.my",
-};
-
 const BRANCH_WHATSAPP: Record<string, string> = {
   satok: "60162072017",
   samarahan: "60168868794",
@@ -30,7 +24,15 @@ const SEKTOR_LABELS: Record<string, string> = {
   pelajar: "Pelajar",
 };
 
-export default function Hero() {
+type HeroData = {
+  headlineLine1: string;
+  headlineLine2: string;
+  subheadline: string;
+  bullets?: { text: string; id?: string | null }[] | null;
+  formHeading: string;
+};
+
+export default function Hero({ data }: { data: HeroData }) {
   const [formData, setFormData] = useState({
     jumlahPinjaman: "",
     umur: "",
@@ -166,10 +168,7 @@ export default function Hero() {
       const res = await fetch("/api/submit-form", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          branchEmail: BRANCH_EMAILS[formData.cawangan],
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (res.ok) {
@@ -265,26 +264,20 @@ export default function Hero() {
           {/* Left content */}
           <div className="text-white lg:pt-4">
             <h1 className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-5xl">
-              Pinjaman Peribadi
+              {data.headlineLine1}
               <br />
-              Patuh Syariah
+              {data.headlineLine2}
             </h1>
             <p className="mt-3 text-sm text-white/90 max-w-md sm:text-base">
-              Urusan di pejabat sahaja. Tiada pegangan kad bank. Proses mudah,
-              pantas dan telus.
+              {data.subheadline}
             </p>
             <ul className="mt-4 space-y-2">
-              {[
-                "Patuh Syariah",
-                "Berlesen KPKT",
-                "Tiada Pegangan Kad ATM",
-                "Pinjaman Diberikan Pada Hari Yang Sama!",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
+              {(data.bullets ?? []).map((item) => (
+                <li key={item.id ?? item.text} className="flex items-center gap-3">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-green text-white text-xs sm:h-6 sm:w-6 sm:text-sm">
                     ✓
                   </span>
-                  <span className="text-sm font-medium sm:text-base">{item}</span>
+                  <span className="text-sm font-medium sm:text-base">{item.text}</span>
                 </li>
               ))}
             </ul>
@@ -293,7 +286,7 @@ export default function Hero() {
           {/* Right form */}
           <div className="w-full rounded-2xl bg-white p-4 shadow-2xl sm:p-5 sm:max-w-sm sm:mx-auto lg:ml-auto lg:mr-0">
             <h2 className="mb-3 text-base font-extrabold text-accent-green sm:text-lg">
-              Borang Daftar Pinjaman
+              {data.formHeading}
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-2.5" noValidate suppressHydrationWarning>

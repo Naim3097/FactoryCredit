@@ -3,16 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --no-server-fast-refresh",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "generate:types": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
+    "generate:importmap": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:importmap",
+    "migrate:create": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate:create",
+    "migrate": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload migrate"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.84.1",
+    "@payloadcms/email-resend": "^3.84.1",
+    "@payloadcms/next": "^3.84.1",
+    "@payloadcms/richtext-lexical": "^3.84.1",
+    "@payloadcms/ui": "^3.84.1",
+    "graphql": "^16.13.2",
     "next": "16.2.3",
+    "payload": "^3.84.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "^6.12.0"
+    "resend": "^6.12.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -14,7 +14,23 @@ export const WhyChooseUs: GlobalConfig = {
       minRows: 1,
       fields: [
         { name: "title", type: "text", required: true },
-        { name: "imageUrl", type: "text", required: true },
+        {
+          name: "image",
+          type: "upload",
+          relationTo: "media",
+          admin: {
+            description:
+              "Recommended size: 400×400px (square). Will be displayed in a circular frame.",
+          },
+        },
+        {
+          name: "imageUrl",
+          type: "text",
+          admin: {
+            description:
+              "Optional fallback if no image is uploaded. Used only when Image is empty.",
+          },
+        },
       ],
     },
   ],

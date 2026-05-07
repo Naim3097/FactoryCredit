@@ -1,4 +1,10 @@
 import type { CollectionConfig } from "payload";
+import {
+  authenticatedOnly,
+  superadminOnly,
+  superadminOnlyOrBootstrap,
+  superadminOrSelf,
+} from "../access/policies";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -10,10 +16,10 @@ export const Users: CollectionConfig = {
     cookies: { secure: process.env.NODE_ENV === "production", sameSite: "Strict" },
   },
   access: {
-    create: ({ req }) => Boolean(req.user),
-    read: ({ req }) => Boolean(req.user),
-    update: ({ req }) => Boolean(req.user),
-    delete: ({ req }) => Boolean(req.user),
+    create: superadminOnlyOrBootstrap,
+    read: authenticatedOnly,
+    update: superadminOrSelf,
+    delete: superadminOnly,
     admin: ({ req }) => Boolean(req.user),
   },
   fields: [],

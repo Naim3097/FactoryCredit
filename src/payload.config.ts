@@ -8,6 +8,7 @@ import sharp from "sharp";
 
 import { Users } from "./collections/Users";
 import { Testimonials } from "./collections/Testimonials";
+import { Media } from "./collections/Media";
 import { Hero } from "./globals/Hero";
 import { Challenges } from "./globals/Challenges";
 import { Problems } from "./globals/Problems";
@@ -39,7 +40,7 @@ export default buildConfig({
     user: Users.slug,
     importMap: { baseDir: path.resolve(dirname) },
   },
-  collections: [Users, Testimonials],
+  collections: [Users, Testimonials, Media],
   globals: [Hero, Challenges, Problems, WhyChooseUs, InfoPenting, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,
@@ -57,8 +58,10 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: databaseUrl,
-      connectionTimeoutMillis: 15000,
+      connectionTimeoutMillis: 30000,
       idleTimeoutMillis: 30000,
+      keepAlive: true,
+      keepAliveInitialDelayMillis: 10000,
     },
   }),
   sharp,

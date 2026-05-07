@@ -18,9 +18,25 @@ export type ProblemsData = {
   items?: { title: string; iconKey: string; id?: string | null }[] | null;
 };
 
+export type MediaDoc = {
+  id: number | string;
+  url?: string | null;
+  alt?: string | null;
+  width?: number | null;
+  height?: number | null;
+  filename?: string | null;
+};
+
 export type WhyChooseUsData = {
   heading: string;
-  reasons?: { title: string; imageUrl: string; id?: string | null }[] | null;
+  reasons?:
+    | {
+        title: string;
+        image?: MediaDoc | number | string | null;
+        imageUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
 };
 
 export type InfoPentingData = {

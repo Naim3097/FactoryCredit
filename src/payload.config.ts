@@ -4,6 +4,7 @@ import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { resendAdapter } from "@payloadcms/email-resend";
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import sharp from "sharp";
 
 import { Users } from "./collections/Users";
@@ -44,6 +45,15 @@ export default buildConfig({
   globals: [Hero, Challenges, Problems, WhyChooseUs, InfoPenting, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,
+  plugins: [
+    vercelBlobStorage({
+      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },

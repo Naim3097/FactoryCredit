@@ -49,3 +49,4 @@ firebase-debug.*.log
 
 # payload uploads (local media storage)
 /media/
+.env*.local

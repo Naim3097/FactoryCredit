@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import {
   authenticatedOnly,
   isSuperadmin,
+  SUPERADMIN_EMAIL,
   superadminOnly,
   superadminOnlyOrBootstrap,
   superadminOrSelf,
@@ -22,6 +23,16 @@ export const Users: CollectionConfig = {
     update: superadminOrSelf,
     delete: superadminOnly,
     admin: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    beforeChange: [
+      ({ data }) => {
+        if (data?.email === SUPERADMIN_EMAIL) {
+          return { ...data, role: "superadmin" };
+        }
+        return data;
+      },
+    ],
   },
   fields: [
     {

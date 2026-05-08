@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 import {
   authenticatedOnly,
+  isSuperadmin,
   superadminOnly,
   superadminOnlyOrBootstrap,
   superadminOrSelf,
@@ -22,5 +23,24 @@ export const Users: CollectionConfig = {
     delete: superadminOnly,
     admin: ({ req }) => Boolean(req.user),
   },
-  fields: [],
+  fields: [
+    {
+      name: "role",
+      type: "select",
+      required: true,
+      defaultValue: "editor",
+      options: [
+        { label: "Superadmin (full access)", value: "superadmin" },
+        { label: "Editor (no user create/delete)", value: "editor" },
+      ],
+      admin: {
+        description:
+          "Only a superadmin can change roles. Editors cannot promote themselves.",
+      },
+      access: {
+        create: ({ req }) => isSuperadmin(req),
+        update: ({ req }) => isSuperadmin(req),
+      },
+    },
+  ],
 };

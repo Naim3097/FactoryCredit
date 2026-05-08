@@ -1,9 +1,13 @@
 import type { Access, PayloadRequest } from "payload";
 
-export const SUPERADMIN_EMAIL = "sales@nexevodigital.com";
+export const SUPERADMIN_EMAIL = "sales@nexovadigital.com";
 
-export const isSuperadmin = (req: PayloadRequest): boolean =>
-  Boolean(req.user) && req.user?.email === SUPERADMIN_EMAIL;
+export const isSuperadmin = (req: PayloadRequest): boolean => {
+  if (!req.user) return false;
+  if (req.user.email === SUPERADMIN_EMAIL) return true;
+  const role = (req.user as { role?: string | null }).role;
+  return role === "superadmin";
+};
 
 export const publicRead: Access = () => true;
 export const authenticatedOnly: Access = ({ req }) => Boolean(req.user);

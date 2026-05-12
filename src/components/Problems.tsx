@@ -66,7 +66,7 @@ export default function Problems({ data }: { data: ProblemsData }) {
           loading="lazy"
         />
         <Image
-          src="/images/problems-bg.png"
+          src="/images/factory credit resize gambar.jpg.jpeg"
           alt="Orang yang menghadapi masalah kewangan"
           fill
           className="hidden lg:block object-cover object-bottom"

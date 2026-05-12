@@ -8,7 +8,7 @@ export type HeroData = {
 
 export type ChallengesData = {
   heading: string;
-  concerns?: { text: string; id?: string | null }[] | null;
+  concerns?: { text: string; iconKey?: string | null; id?: string | null }[] | null;
   ctaBannerText: string;
 };
 
@@ -65,6 +65,9 @@ export type FooterData = {
         phoneDisplay: string;
         wa: string;
         mapUrl: string;
+        facebookUrl?: string | null;
+        instagramUrl?: string | null;
+        tiktokUrl?: string | null;
         id?: string | null;
       }[]
     | null;

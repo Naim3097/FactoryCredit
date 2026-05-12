@@ -94,9 +94,9 @@ export default function Problems({ data }: { data: ProblemsData }) {
           {items.map((item, idx) => (
             <RevealOnScroll key={item.id ?? item.title} delay={idx * 100} className="h-full">
             <div
-              className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center min-h-[110px]"
+              className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-[#0A4A7A]/85 backdrop-blur-sm border border-[#0A4A7A] shadow-md p-4 text-center min-h-[110px]"
             >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#063959]">
                 {ICONS[item.iconKey] ?? null}
               </div>
               <p className="text-xs font-medium text-white leading-snug text-balance">{item.title}</p>
@@ -110,9 +110,9 @@ export default function Problems({ data }: { data: ProblemsData }) {
           {items.map((item, idx) => (
             <RevealOnScroll key={item.id ?? item.title} delay={idx * 100} className="h-full">
             <div
-              className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-4 text-center transition-transform hover:scale-105 min-h-[140px]"
+              className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-[#0A4A7A]/85 backdrop-blur-sm border border-[#0A4A7A] shadow-md p-4 text-center transition-transform hover:scale-105 min-h-[140px]"
             >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/20">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#063959]">
                 {ICONS[item.iconKey] ?? null}
               </div>
               <p className="text-sm font-medium text-white leading-snug text-balance">{item.title}</p>

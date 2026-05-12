@@ -42,43 +42,41 @@ function BranchSocials({
   tiktokUrl?: string | null;
   branchName: string;
 }) {
-  const links: SocialLink[] = [];
-  if (facebookUrl) {
-    links.push({
-      href: facebookUrl,
+  // Always show all three icons. Use "#" as a placeholder until real URLs are wired in.
+  const links: SocialLink[] = [
+    {
+      href: facebookUrl || "#",
       label: `Facebook ${branchName}`,
       icon: <FacebookIcon />,
-    });
-  }
-  if (instagramUrl) {
-    links.push({
-      href: instagramUrl,
+    },
+    {
+      href: instagramUrl || "#",
       label: `Instagram ${branchName}`,
       icon: <InstagramIcon />,
-    });
-  }
-  if (tiktokUrl) {
-    links.push({
-      href: tiktokUrl,
+    },
+    {
+      href: tiktokUrl || "#",
       label: `TikTok ${branchName}`,
       icon: <TikTokIcon />,
-    });
-  }
-  if (links.length === 0) return null;
+    },
+  ];
   return (
     <div className="mt-2 flex items-center gap-2">
-      {links.map((l) => (
-        <a
-          key={l.href}
-          href={l.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={l.label}
-          className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30"
-        >
-          {l.icon}
-        </a>
-      ))}
+      {links.map((l) => {
+        const isPlaceholder = l.href === "#";
+        return (
+          <a
+            key={l.label}
+            href={l.href}
+            target={isPlaceholder ? undefined : "_blank"}
+            rel={isPlaceholder ? undefined : "noopener noreferrer"}
+            aria-label={l.label}
+            className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30"
+          >
+            {l.icon}
+          </a>
+        );
+      })}
     </div>
   );
 }

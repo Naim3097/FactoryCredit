@@ -20,21 +20,28 @@ import type {
   WhyChooseUsData,
 } from "@/types/cms";
 
+// Render on-demand at runtime instead of at build time so Vercel's build
+// process never touches the database. The `revalidate` still caches the
+// rendered HTML on the edge for 60 seconds.
+export const dynamic = "force-dynamic";
 export const revalidate = 60;
 
 export default async function Home() {
   const payload = await getPayload({ config });
 
-  const [hero, challenges, problems, whyChooseUs, infoPenting, footer, testimonials] =
-    await Promise.all([
-      payload.findGlobal({ slug: "hero" }),
-      payload.findGlobal({ slug: "challenges" }),
-      payload.findGlobal({ slug: "problems" }),
-      payload.findGlobal({ slug: "why-choose-us" }),
-      payload.findGlobal({ slug: "info-penting" }),
-      payload.findGlobal({ slug: "footer" }),
-      payload.find({ collection: "testimonials", limit: 100, sort: "order" }),
-    ]);
+  // Run queries sequentially — the pool is small and serverless Postgres
+  // (Neon, Supabase free) reject bursts of parallel connections.
+  const hero = await payload.findGlobal({ slug: "hero" });
+  const challenges = await payload.findGlobal({ slug: "challenges" });
+  const problems = await payload.findGlobal({ slug: "problems" });
+  const whyChooseUs = await payload.findGlobal({ slug: "why-choose-us" });
+  const infoPenting = await payload.findGlobal({ slug: "info-penting" });
+  const footer = await payload.findGlobal({ slug: "footer" });
+  const testimonials = await payload.find({
+    collection: "testimonials",
+    limit: 100,
+    sort: "order",
+  });
 
   return (
     <>

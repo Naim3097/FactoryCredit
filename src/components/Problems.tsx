@@ -45,6 +45,24 @@ const ICONS: Record<string, React.ReactNode> = {
 
 import type { ProblemsData } from "@/types/cms";
 
+// Pick a money-related icon when the text talks about debt/commitment/instalment,
+// otherwise fall back to the iconKey set in CMS.
+function resolveProblemIcon(title: string, iconKey: string): React.ReactNode {
+  const t = title.toLowerCase();
+  const moneyKeywords = [
+    "hutang",
+    "komitmen",
+    "ansuran",
+    "bayaran bulanan",
+    "tinggi",
+    "pinjaman lama",
+  ];
+  if (moneyKeywords.some((k) => t.includes(k))) {
+    return ICONS.money;
+  }
+  return ICONS[iconKey] ?? null;
+}
+
 export default function Problems({ data }: { data: ProblemsData }) {
   const items = data.items ?? [];
 
@@ -97,7 +115,7 @@ export default function Problems({ data }: { data: ProblemsData }) {
               className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-[#0A4A7A]/85 backdrop-blur-sm border border-[#0A4A7A] shadow-md p-4 text-center min-h-[110px]"
             >
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#063959]">
-                {ICONS[item.iconKey] ?? null}
+                {resolveProblemIcon(item.title, item.iconKey)}
               </div>
               <p className="text-xs font-medium text-white leading-snug text-balance">{item.title}</p>
             </div>
@@ -113,7 +131,7 @@ export default function Problems({ data }: { data: ProblemsData }) {
               className="flex h-full flex-col items-center justify-center gap-2 rounded-2xl bg-[#0A4A7A]/85 backdrop-blur-sm border border-[#0A4A7A] shadow-md p-4 text-center transition-transform hover:scale-105 min-h-[140px]"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#063959]">
-                {ICONS[item.iconKey] ?? null}
+                {resolveProblemIcon(item.title, item.iconKey)}
               </div>
               <p className="text-sm font-medium text-white leading-snug text-balance">{item.title}</p>
             </div>

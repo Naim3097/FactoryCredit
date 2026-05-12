@@ -83,8 +83,44 @@ const DEFAULT_ICON_ORDER = [
   "chat",
 ];
 
-function pickIcon(iconKey: string | null | undefined, idx: number) {
+// Keyword → icon mapping (Malay + common English terms).
+// Order matters: the first rule whose keyword appears in the text wins.
+const ICON_KEYWORD_RULES: { keywords: string[]; iconKey: string }[] = [
+  // Rejection / not approved
+  { keywords: ["tolak", "ditolak", "reject", "tidak lulus", "tak lulus", "gagal"], iconKey: "reject" },
+  // High interest
+  { keywords: ["faedah", "interest", "kadar", "riba"], iconKey: "percent" },
+  // Hidden fees / extra charges
+  { keywords: ["yuran tersembunyi", "caj tersembunyi", "hidden", "tersembunyi", "yuran tambahan", "caj tambahan"], iconKey: "hiddenFee" },
+  // Money / cost / debt / commitment
+  { keywords: ["mahal", "kos", "bayaran", "ansuran", "komitmen", "hutang", "duit", "wang", "harga"], iconKey: "money" },
+  // Slow / takes too long
+  { keywords: ["lama", "lambat", "tunggu", "masa", "slow", "perlahan"], iconKey: "clock" },
+  // Privacy / data security
+  { keywords: ["privasi", "rahsia", "peribadi", "data", "maklumat", "selamat"], iconKey: "lock" },
+  // Trust / scam concerns
+  { keywords: ["scam", "tipu", "penipuan", "amanah", "percaya", "lesen", "sah"], iconKey: "shield" },
+  // Paperwork / documents
+  { keywords: ["dokumen", "borang", "kertas", "salinan", "ic", "slip", "penyata"], iconKey: "document" },
+  // No support / no one to talk to
+  { keywords: ["sokongan", "bantu", "bantuan", "khidmat", "support", "hubungi", "tanya"], iconKey: "chat" },
+  // Confused / don't know
+  { keywords: ["tidak tahu", "tak tahu", "keliru", "bingung", "faham", "mana", "macam mana", "bagaimana"], iconKey: "question" },
+];
+
+function pickIcon(iconKey: string | null | undefined, text: string, idx: number) {
+  // 1. Explicit CMS choice wins
   if (iconKey && CHALLENGE_ICONS[iconKey]) return CHALLENGE_ICONS[iconKey];
+
+  // 2. Keyword match against the concern text
+  const lower = text.toLowerCase();
+  for (const rule of ICON_KEYWORD_RULES) {
+    if (rule.keywords.some((k) => lower.includes(k))) {
+      return CHALLENGE_ICONS[rule.iconKey];
+    }
+  }
+
+  // 3. Fallback: cycle defaults so nothing renders blank
   return CHALLENGE_ICONS[DEFAULT_ICON_ORDER[idx % DEFAULT_ICON_ORDER.length]];
 }
 
@@ -113,7 +149,7 @@ function ConcernPill({ text, icon, desktop = false }: ConcernPillProps) {
 export default function Challenges({ data }: { data: ChallengesData }) {
   const concerns = (data.concerns ?? []).map((c, idx) => ({
     text: c.text,
-    icon: pickIcon(c.iconKey, idx),
+    icon: pickIcon(c.iconKey, c.text, idx),
   }));
 
   return (

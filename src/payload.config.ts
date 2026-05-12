@@ -66,7 +66,6 @@ export default buildConfig({
         })
       : undefined,
   db: postgresAdapter({
-    push: true,
     pool: {
       connectionString: databaseUrl,
       connectionTimeoutMillis: 30000,

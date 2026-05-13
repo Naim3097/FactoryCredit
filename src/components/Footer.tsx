@@ -31,6 +31,51 @@ const TikTokIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
 
 type SocialLink = { href: string; label: string; icon: React.ReactNode };
 
+// Per-branch social media URLs. Matched against the branch's `name` field
+// (case-insensitive substring). Override CMS / placeholder values.
+const BRANCH_SOCIAL_OVERRIDES: {
+  match: string;
+  facebookUrl: string;
+  instagramUrl: string;
+  tiktokUrl: string;
+}[] = [
+  {
+    match: "kuching",
+    facebookUrl: "https://www.facebook.com/factorycreditbtl",
+    instagramUrl: "https://www.instagram.com/factorycredithq",
+    tiktokUrl: "https://www.tiktok.com/@factorysatokfml",
+  },
+  {
+    match: "samarahan",
+    facebookUrl: "https://www.facebook.com/factorysamarahan",
+    instagramUrl: "https://www.instagram.com/factory.credit",
+    tiktokUrl: "https://www.tiktok.com/@fks.credit",
+  },
+  {
+    match: "bintulu",
+    facebookUrl: "https://www.facebook.com/factorycreditbtl",
+    instagramUrl: "https://www.instagram.com/factorycredit.bintulu",
+    tiktokUrl: "https://www.tiktok.com/@fbintulu.cre",
+  },
+];
+
+function resolveBranchSocials(
+  branchName: string,
+  fromCms: {
+    facebookUrl?: string | null;
+    instagramUrl?: string | null;
+    tiktokUrl?: string | null;
+  },
+) {
+  const lower = branchName.toLowerCase();
+  const override = BRANCH_SOCIAL_OVERRIDES.find((o) => lower.includes(o.match));
+  return {
+    facebookUrl: override?.facebookUrl ?? fromCms.facebookUrl ?? null,
+    instagramUrl: override?.instagramUrl ?? fromCms.instagramUrl ?? null,
+    tiktokUrl: override?.tiktokUrl ?? fromCms.tiktokUrl ?? null,
+  };
+}
+
 function BranchSocials({
   facebookUrl,
   instagramUrl,
@@ -140,7 +185,13 @@ export default function Footer({ data }: { data: FooterData }) {
           <div className="lg:col-span-2">
             <h2 className="mb-3 text-sm font-bold">Khidmat Pelanggan</h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              {branches.map((b) => (
+              {branches.map((b) => {
+                const socials = resolveBranchSocials(b.name, {
+                  facebookUrl: b.facebookUrl,
+                  instagramUrl: b.instagramUrl,
+                  tiktokUrl: b.tiktokUrl,
+                });
+                return (
                 <div key={b.id ?? b.name}>
                   <p className="text-xs font-bold">{b.name}</p>
                   <a
@@ -167,13 +218,14 @@ export default function Footer({ data }: { data: FooterData }) {
                     {b.phoneDisplay}
                   </a>
                   <BranchSocials
-                    facebookUrl={b.facebookUrl}
-                    instagramUrl={b.instagramUrl}
-                    tiktokUrl={b.tiktokUrl}
+                    facebookUrl={socials.facebookUrl}
+                    instagramUrl={socials.instagramUrl}
+                    tiktokUrl={socials.tiktokUrl}
                     branchName={b.name}
                   />
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

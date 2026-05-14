@@ -41,7 +41,7 @@ const BRANCH_SOCIAL_OVERRIDES: {
 }[] = [
   {
     match: "kuching",
-    facebookUrl: "https://www.facebook.com/factorycreditbtl",
+    facebookUrl: "https://www.facebook.com/factorysatok",
     instagramUrl: "https://www.instagram.com/factorycredithq",
     tiktokUrl: "https://www.tiktok.com/@factorysatokfml",
   },
